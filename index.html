@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ბასი · BUS</title>
+<meta name="description" content="ბასი გაჩვენებთ, სად არის მარშრუტკა, რამდენ წუთში მოვა თქვენთან და რამდენი ადგილია თავისუფალი. უფასო, რეკლამის გარეშე.">
+<meta property="og:title" content="ბასი · სად არის მარშრუტკა">
+<meta property="og:description" content="ნახეთ, რამდენ წუთში მოვა მარშრუტკა თქვენთან. უფასო აპლიკაცია Android-ისთვის.">
+<meta property="og:image" content="https://zukajirashvili.github.io/basi/og.png">
+<meta property="og:url" content="https://zukajirashvili.github.io/basi/">
+<meta name="theme-color" content="#FFC72C">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ECEEF1; --surface: #FFFFFF; --ink: #14171C; --muted: #555D69; --line: #CDD3DA;
+    --sign: #FFC72C; --sign-ink: #1A1608; --sign-soft: rgba(26, 22, 8, 0.16); --note: #FFF1C2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1216; --surface: #181C22; --ink: #ECEFF2; --muted: #9EA7B3; --line: #2E343D;
+      --sign: #F4BE22; --note: #352812;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1216; --surface: #181C22; --ink: #ECEFF2; --muted: #9EA7B3; --line: #2E343D;
+    --sign: #F4BE22; --note: #352812;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Sans Georgian", system-ui, sans-serif; font-size: 18px; line-height: 1.5;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: 16px 16px 40px; display: grid; gap: 16px; }
+  h1, h2, h3, p { margin: 0; }
+
+  .hero { background: var(--sign); color: var(--sign-ink); border: 2px solid var(--sign-soft); border-radius: 22px; padding: 22px 20px; display: grid; gap: 14px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 64px; height: 64px; border-radius: 16px; background: #fff; }
+  .brand b { font-weight: 900; font-size: 34px; line-height: 1; }
+  .brand small { display: block; font-weight: 700; font-size: 14px; letter-spacing: 3px; }
+  .hero h1 { font-weight: 900; font-size: 32px; line-height: 1.2; }
+  .hero p { font-size: 18px; }
+
+  .download {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    min-height: 76px; padding: 12px 20px; border-radius: 18px; text-decoration: none;
+    background: var(--sign-ink); color: #fff; font-weight: 900; font-size: 22px; text-align: center;
+  }
+  .download:active { transform: scale(0.98); }
+  .download span { font-weight: 400; font-size: 15px; opacity: 0.85; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 12px; }
+  .card h2 { font-weight: 900; font-size: 22px; }
+  .muted { color: var(--muted); }
+  .note { background: var(--note); border-radius: 14px; padding: 14px 16px; font-weight: 700; }
+  [hidden] { display: none !important; }
+
+  ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: s; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before {
+    content: counter(s); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--ink); color: var(--sign); font-weight: 900; font-size: 20px;
+  }
+  ol.steps b { display: block; }
+
+  .features { display: grid; gap: 12px; }
+  .feature { display: grid; gap: 4px; }
+  .feature h3 { font-weight: 900; font-size: 19px; }
+
+  .qr { display: grid; justify-items: center; gap: 10px; text-align: center; }
+  .qr img { width: 220px; height: 220px; background: #fff; padding: 10px; border-radius: 14px; }
+
+  a { color: inherit; font-weight: 700; }
+  footer { text-align: center; font-size: 14px; color: var(--muted); display: grid; gap: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="brand">
+      <img src="icon.png" alt="">
+      <div><b>ბასი</b><small>BUS</small></div>
+    </div>
+    <h1>სად არის მარშრუტკა?</h1>
+    <p>ბასი გაჩვენებთ, სად არის მარშრუტკა, რამდენ წუთში მოვა თქვენთან და დაახლოებით რამდენი ადგილია თავისუფალი. უფასოა და რეკლამის გარეშე.</p>
+    <a class="download" id="download" href="https://github.com/zukajirashvili/basi/releases/latest/download/basi.apk">
+      ჩამოტვირთვა Android-ისთვის
+      <span id="meta">უფასო · დაახლოებით 110 MB</span>
+    </a>
+  </section>
+
+  <p class="note" id="iphone" hidden>iPhone-ისთვის ბასი ჯერ არ არის. ახლა მხოლოდ Android ტელეფონებზე მუშაობს.</p>
+
+  <section class="card qr" id="desktop" hidden>
+    <h2>გახსენით ტელეფონზე</h2>
+    <img src="qr.svg" alt="QR კოდი ამ გვერდის მისამართით">
+    <p class="muted">დაასკანერეთ კოდი ტელეფონის კამერით, ან ტელეფონში ჩაწერეთ: <b>zukajirashvili.github.io/basi</b></p>
+  </section>
+
+  <section class="card">
+    <h2>როგორ დავაყენო</h2>
+    <ol class="steps">
+      <li><div><b>დააჭირეთ „ჩამოტვირთვა“.</b><span class="muted">ფაილი დიდია, ამიტომ სჯობს Wi-Fi.</span></div></li>
+      <li><div><b>გახსენით ჩამოტვირთული ფაილი.</b><span class="muted">შეტყობინებებიდან, ან აპლიკაციიდან „ფაილები“ / „ჩამოტვირთვები“.</span></div></li>
+      <li><div><b>დაუშვით დაყენება.</b><span class="muted">თუ ტელეფონი გეტყვით, რომ უცნობი აპლიკაციები აკრძალულია, დააჭირეთ „პარამეტრები“, ჩართეთ „ამ წყაროდან დაშვება“ და დაბრუნდით უკან.</span></div></li>
+      <li><div><b>დააჭირეთ „ინსტალაცია“.</b><span class="muted">თუ Google Play Protect გაგაფრთხილებთ, დააჭირეთ „დეტალები“ და „მაინც ინსტალაცია“. ეს მხოლოდ იმიტომ ხდება, რომ ბასი ჯერ Play Store-ში არ არის.</span></div></li>
+      <li><div><b>გახსენით ბასი.</b><span class="muted">მას ყვითელი ავტობუსის ნიშანი აქვს.</span></div></li>
+    </ol>
+    <p class="muted">განახლებები თავისით მოდის: საკმარისია აპლიკაციის დახურვა და ხელახლა გახსნა.</p>
+  </section>
+
+  <section class="card features">
+    <div class="feature">
+      <h3>მგზავრებისთვის</h3>
+      <p class="muted">ჩაწერეთ, საიდან და სად მიდიხართ, და ნახეთ, რამდენ წუთში მოვა მარშრუტკა თქვენთან, სად არის ის რუკაზე და რამდენი ადგილია თავისუფალი. მძღოლს ერთი შეხებით დაურეკავთ.</p>
+    </div>
+    <div class="feature">
+      <h3>მძღოლებისთვის</h3>
+      <p class="muted">ერთხელ ჩაწერეთ მარშრუტი და პირველი და ბოლო გასვლის დრო. სამუშაო საათებში მგზავრები თავად დაინახავენ, სად ხართ. <a href="driver-guide.png">მძღოლის გზამკვლევი</a></p>
+    </div>
+    <div class="feature">
+      <h3>მარტივია ყველასთვის</h3>
+      <p class="muted">რეგისტრაცია ტელეფონის ნომრით, ელფოსტით ან Google-ით, SMS კოდის გარეშე. დიდი ტექსტი და დიდი ღილაკები.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>დახმარება</h2>
+    <p class="muted">კითხვა ან პრობლემა? მოგვწერეთ: <a href="mailto:lunaviolab@gmail.com">lunaviolab@gmail.com</a></p>
+  </section>
+
+  <footer>
+    <span>ბასი · BUS — უფასო, არაკომერციული აპლიკაცია · lunaviolab</span>
+  </footer>
+</main>
+<script>
+  // iPhones can't install it yet; computers get a QR code to open this page on a phone.
+  var ua = navigator.userAgent;
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  if (isIOS) document.getElementById('iphone').hidden = false;
+  else if (!isAndroid) document.getElementById('desktop').hidden = false;
+
+  // The newest version and its size, straight from the release; the text above is the fallback.
+  fetch('https://api.github.com/repos/zukajirashvili/basi/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel) return;
+      var apk = (rel.assets || []).filter(function (a) { return a.name === 'basi.apk'; })[0];
+      if (!apk) return;
+      var mb = Math.round(apk.size / 1048576);
+      document.getElementById('meta').textContent = 'უფასო · ' + mb + ' MB · ვერსია ' + String(rel.tag_name || '').replace(/^v/, '');
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
